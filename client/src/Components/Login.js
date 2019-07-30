@@ -24,7 +24,7 @@ const Login = () => (
         </Segment>
       </Form>
       <Message>
-        New to us? <a href='#'>Sign Up</a>
+        New here? <a href='#'>Create a new account</a>
       </Message>
     </Grid.Column>
   </Grid>
