@@ -1,6 +1,6 @@
 import React from 'react'
 import { useInput } from "./useInput.js";
-import { useLocalStorage } from "./useLocalStorage.js";
+//import { useLocalStorage } from "./UseLocalStorage.js";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -10,6 +10,8 @@ const [email, setEmail, handleEmail] = useInput("", "email");
 
 function handleSubmit(event) {
     event.preventDefault();
+    setPassword(password);
+    setEmail(email);
   }
   return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
