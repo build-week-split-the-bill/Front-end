@@ -1,24 +1,35 @@
 import React from 'react'
+import { useInput } from "./useInput.js";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
-const Login = () => (
+
+export default function Login(){
+  const [password, setPassword, handlePassword] = useInput("", "password");
+const [email, setEmail, handleEmail] = useInput("", "email");
+
+function handleSubmit(event) {
+    event.preventDefault();
+  }
+  return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
       <Header as='h2' color='teal' textAlign='center'>
          Log-in to your account
       </Header>
-      <Form size='large'>
+      <Form size='large' onSubmit={handleSubmit}>
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' />
+          <Form.Input fluid icon='user' iconPosition='left' placeholder='E-mail address' type= 'email' value={email} onChange={handleEmail}/>
           <Form.Input
             fluid
             icon='lock'
             iconPosition='left'
             placeholder='Password'
             type='password'
+            value= {password}
+            onChange={handlePassword}
           />
 
-          <Button color='teal' fluid size='large'>
+          <Button color='purple' fluid size='large' type='submit'>
             Login
           </Button>
         </Segment>
@@ -28,6 +39,6 @@ const Login = () => (
       </Message>
     </Grid.Column>
   </Grid>
-)
+  )
+}
 
-export default Login
