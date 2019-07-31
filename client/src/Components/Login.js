@@ -13,11 +13,7 @@ const [email, setEmail, handleEmail] = useInput("", "email");
 function handleSubmit(event) {
     event.preventDefault();
     axios
-    .post('https://split-the-bill-buildweek.herokuapp.com/api/users/login',
-    headers: {
-      Authorization: token,
-      'Content-Type': application/json
-    })
+    .post('https://split-the-bill-buildweek.herokuapp.com/api/users/login', {password, email})
 
   .then(res=> {
     console.log(res.data)
