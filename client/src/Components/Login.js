@@ -1,7 +1,7 @@
 import React from 'react'
 import { useInput } from "./useInput.js";
 import axios from 'axios'
-import { UseLocalStorage } from "./UseLocalStorage.js";
+//import { UseLocalStorage } from "./UseLocalStorage.js";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -17,7 +17,8 @@ function handleSubmit(event) {
 
   .then(res=> {
     console.log(res.data)
-    localStorage.setItem('token', res.data.access_token);
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user', JSON.stringify(res.data.user))
     console.log(res.access_token)
 
   })
