@@ -1,7 +1,7 @@
 import React from 'react'
 import { useInput } from "./useInput.js";
 import axios from 'axios'
-//import { useLocalStorage } from "./UseLocalStorage.js";
+import { UseLocalStorage } from "./UseLocalStorage.js";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 
@@ -13,7 +13,7 @@ const [email, setEmail, handleEmail] = useInput("", "email");
 function handleSubmit(event) {
     event.preventDefault();
     axios
-    .post('https://split-the-bill-buildweek.herokuapp.com/api/users/login', {password, email})
+    .post('https://split-the-bill-buildweek.herokuapp.com/api/users/login', {password: password, email: email})
 
   .then(res=> {
     console.log(res.data)
