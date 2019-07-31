@@ -1,7 +1,9 @@
 import React from 'react'
 import { useInput } from "./useInput.js";
+import axios from 'axios'
 //import { useLocalStorage } from "./UseLocalStorage.js";
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+
 
 
 export default function Login(){
@@ -10,9 +12,23 @@ const [email, setEmail, handleEmail] = useInput("", "email");
 
 function handleSubmit(event) {
     event.preventDefault();
-    setPassword(password);
-    setEmail(email);
-  }
+    axios
+    .post('https://split-the-bill-buildweek.herokuapp.com/api/users/login',
+    headers: {
+      Authorization: token,
+      'Content-Type': application/json
+    })
+
+  .then(res=> {
+    console.log(res.data)
+    localStorage.setItem('token', res.data.access_token);
+    console.log(res.access_token)
+
+  })
+  .catch(error=>{
+    console.error(error)
+  })
+}
   return(
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450 }}>
