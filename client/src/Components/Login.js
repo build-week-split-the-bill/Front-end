@@ -16,7 +16,7 @@ const Login = () => (
             iconPosition='left'
             placeholder='Password'
             type='password'
-          />
+          /> 
 
           <Button color='teal' fluid size='large'>
             Login
