@@ -6,11 +6,12 @@ import BillDetails from './BillDetails';
 import NotificationButton from './NotificationButton';
 import axios from 'axios';
 
-const Bill = ({ bill, setToggle }) => {
+const Bill = ({ bill, bills, setToggle, props }) => {
   const total = (bill.split_sum * bill.split_people_count).toFixed(2);
   const [modalOpen, setModalOpen] = useState(false);
   const count = bill.split_people_count;
   const sum = bill.split_sum.toFixed(2);
+
 
   const handleOpen = () => {
     setModalOpen(true);
@@ -29,7 +30,12 @@ const Bill = ({ bill, setToggle }) => {
           },
         },
       )
-      .then(() => setToggle(3))
+      .then(() => {
+        if (bills.length < 2) {
+          return props[0].history.push('/');
+        }
+        setToggle(3);
+      })
       .catch(err => console.log(err));
   };
 
