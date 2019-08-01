@@ -10,7 +10,7 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-
+import { loadProgressBar } from 'axios-progress-bar';
 import Bill from './Bill';
 import AddBill from './AddBill';
 
@@ -31,6 +31,7 @@ const Bills = ({ ...props }) => {
   useEffect(() => {
     let isSubscribed = true;
     const getBills = async () => {
+      loadProgressBar();
       return await axios.get(
         `https://split-the-bill-postgres.herokuapp.com/api/users/${
           user.id

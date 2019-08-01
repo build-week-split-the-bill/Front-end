@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "axios-progress-bar": "^1.2.0"
+  }
+}

@@ -3,6 +3,7 @@ import { Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Alert from './Alert.js';
+import { loadProgressBar } from 'axios-progress-bar';
 
 const Register = props => {
   const [user, setUsers] = useState({
@@ -20,7 +21,7 @@ const Register = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-
+    loadProgressBar();
     axios
       .post(
         'https://split-the-bill-postgres.herokuapp.com/api/users/register',

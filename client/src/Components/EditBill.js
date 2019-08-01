@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'semantic-ui-react';
+import { loadProgressBar } from 'axios-progress-bar';
 
 import axios from 'axios';
 
@@ -20,6 +21,7 @@ const EditBill = ({ bill, handleClose, setToggle }) => {
 
   useEffect(() => {
     const updateBill = async data => {
+      loadProgressBar();
       return await axios.put(
         `https://split-the-bill-postgres.herokuapp.com/api/bills/${bill.id}`,
         data,
