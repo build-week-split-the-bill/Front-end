@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Segment,
@@ -6,95 +6,78 @@ import {
   Card,
   Button,
   Icon,
-  Modal
-} from "semantic-ui-react";
-import axios from "axios";
+  Modal,
+} from 'semantic-ui-react';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
-import Bill from "./Bill";
-import AddBill from "./AddBill";
+import Bill from './Bill';
+import AddBill from './AddBill';
 
 // Route /bills
 const Bills = () => {
   const [bills, setBills] = useState([]);
-  const [user, setUser] = useState({});
+  const user = JSON.parse(localStorage.getItem('user'));
   const [modalOpen, setModalOpen] = useState(false);
+  const [toggle, setToggle] = useState(null);
 
   const handleOpen = () => {
-    console.log("open");
     setModalOpen(true);
   };
   const handleClose = () => {
-    console.log("close");
     setModalOpen(false);
   };
 
-  /* 
   useEffect(() => {
-    if(!localStorage.getItem("token") && !localStorage.getItem("user")) {
-
-      <Redirect to="/login" />
-    } else {
-      // axios request for all bills
-    }
-   }, []); 
-   */
-
-  useEffect(() => {
-    // Fake user login
-    localStorage.setItem(
-      "token",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo4LCJlbWFpbCI6InRlc3RAZXhhbXBsZS5jb20iLCJpYXQiOjE1NjQ2MDEwNzEsImV4cCI6MTU2NDYwNDY3MX0.84bMmXEqqNdoqv8zokz4nh0S62hXncEz3wIuDvrrO_k"
-    );
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: 8,
-        email: "test@example.com",
-        firstname: "bob",
-        lastname: "marley"
-      })
-    );
-
-    setUser(JSON.parse(localStorage.getItem("user")));
-
+    let isSubscribed = true;
     const getBills = async () => {
       return await axios.get(
-        // Replace later
-        // `https://split-the-bill-buildweek.herokuapp.com/api/users/${user.id}/bills`,
-        "https://split-the-bill-buildweek.herokuapp.com/api/users/8/bills",
+        `https://split-the-bill-postgres.herokuapp.com/api/users/${
+          user.id
+        }/bills`,
         {
           headers: {
-            Authorization: localStorage.getItem("token")
-          }
-        }
+            Authorization: localStorage.getItem('token'),
+          },
+        },
       );
     };
 
     getBills()
       .then(res => {
         const listOfBills = res.data;
-        setBills(listOfBills);
+        if (isSubscribed) {
+          setBills(listOfBills);
+          setToggle(0);
+        }
       })
       .catch(err => {
-        console.log("Error: ", err);
-        console.log("Sorry, no bills yet!");
+        console.log('Error: ', err);
       });
-  }, [bills, user.id]);
+
+    return () => (isSubscribed = false);
+  }, [toggle]);
+
+  if (
+    localStorage.getItem('token') === null ||
+    localStorage.getItem('user') === null
+  ) {
+    return <Redirect to='/login' />;
+  }
 
   return (
     <Container text>
       <Header
-        style={{ textTransform: "capitalize", color: "white" }}
-        textAlign="center"
-        as="h2"
-      >
+        style={{ textTransform: 'capitalize', color: 'white' }}
+        textAlign='center'
+        as='h2'>
         Welcome, {user.firstname}!
       </Header>
-      <Segment id="bill-container">
+      <Segment id='bill-container'>
         {bills.length > 0 ? (
           <Card.Group centered itemsPerRow={1}>
             {bills.map(bill => {
-              return <Bill key={bill.id} bill={bill} />;
+              return <Bill key={bill.id} bill={bill} setToggle={setToggle} />;
             })}
           </Card.Group>
         ) : (
@@ -103,16 +86,15 @@ const Bills = () => {
         {/* Link to /addbill or show component */}
         <Modal
           trigger={
-            <Button id="add" icon onClick={handleOpen}>
-              <Icon name="add circle" />
+            <Button id='add' icon onClick={handleOpen}>
+              <Icon name='add circle' />
             </Button>
           }
           open={modalOpen}
           onClose={handleClose}
-          closeIcon
-        >
+          closeIcon>
           <Modal.Header>Add a Bill</Modal.Header>
-          <AddBill handleClose={handleClose} />
+          <AddBill setToggle={setToggle} handleClose={handleClose} />
         </Modal>
       </Segment>
     </Container>
