@@ -37,16 +37,16 @@ const NavBar = ({ token, setToken }) => {
         {/* Change to="/" to point to marketing page? */}
         <Menu.Item
           name='home'
-          as={Link}
-          to='/'
+          as='a'
+          href='https://sleepy-liskov-ea2384.netlify.com/index.html'
           active={activeItem === 'home'}
           onClick={handleItemClick}
         />
         {/* Change to="/about" to point to marketing page about? */}
         <Menu.Item
           name='about'
-          as={Link}
-          to='/about'
+          as='a'
+          href='https://sleepy-liskov-ea2384.netlify.com/contactpage.html'
           active={activeItem === 'about'}
           onClick={handleItemClick}
         />
