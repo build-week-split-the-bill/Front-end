@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, Segment } from 'semantic-ui-react';
-
 const NavBar = ({ token, setToken }) => {
   const [activeItem, setActiveItem] = useState('home');
-
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
   // Causes a re-render after token updates
   useEffect(() => {
     setInterval(() => {
       setToken(token);
     }, 500);
   }, [token]);
-
   const successfullyLoggedIn = () => {
     if (localStorage.getItem('token') && localStorage.getItem('user')) {
       return true;
@@ -23,14 +19,12 @@ const NavBar = ({ token, setToken }) => {
       return false;
     }
   };
-
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setActiveItem('login');
     setToken(false);
   };
-
   return (
     <Segment inverted>
       <Menu inverted pointing secondary>
@@ -92,5 +86,4 @@ const NavBar = ({ token, setToken }) => {
     </Segment>
   );
 };
-
 export default NavBar;
