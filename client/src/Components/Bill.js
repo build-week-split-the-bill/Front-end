@@ -3,12 +3,13 @@ import { Card, Feed, Icon, Button, Modal } from 'semantic-ui-react';
 
 import EditBill from './EditBill';
 import BillDetails from './BillDetails';
-// import NotificationButton from "./NotificationButton";
+import NotificationButton from './NotificationButton';
 import axios from 'axios';
 
-const Bill = ({ bill, setToggle }) => {
+const Bill = ({ bill, bills, setToggle, props }) => {
   const total = (bill.split_sum * bill.split_people_count).toFixed(2);
   const [modalOpen, setModalOpen] = useState(false);
+  const count = bill.split_people_count;
 
   const handleOpen = () => {
     setModalOpen(true);
@@ -27,7 +28,12 @@ const Bill = ({ bill, setToggle }) => {
           },
         },
       )
-      .then(() => setToggle(3))
+      .then(() => {
+        if (bills.length < 2) {
+          return props[0].history.push('/');
+        }
+        setToggle(3);
+      })
       .catch(err => console.log(err));
   };
 
@@ -64,7 +70,7 @@ const Bill = ({ bill, setToggle }) => {
                 />
               </Modal>
               {/* NOTIFICATIONS */}
-              {/* <NotificationButton /> */}
+              <NotificationButton count={count} />
             </div>
 
             <Modal trigger={<Button icon>See bill details</Button>} closeIcon>

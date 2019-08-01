@@ -15,7 +15,7 @@ import Bill from './Bill';
 import AddBill from './AddBill';
 
 // Route /bills
-const Bills = () => {
+const Bills = ({ ...props }) => {
   const [bills, setBills] = useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
   const [modalOpen, setModalOpen] = useState(false);
@@ -77,7 +77,15 @@ const Bills = () => {
         {bills.length > 0 ? (
           <Card.Group centered itemsPerRow={1}>
             {bills.map(bill => {
-              return <Bill key={bill.id} bill={bill} setToggle={setToggle} />;
+              return (
+                <Bill
+                  key={bill.id}
+                  bill={bill}
+                  setToggle={setToggle}
+                  bills={bills}
+                  props={props}
+                />
+              );
             })}
           </Card.Group>
         ) : (
