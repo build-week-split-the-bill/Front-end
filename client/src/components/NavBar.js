@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Menu, Segment } from "semantic-ui-react";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Menu, Segment } from 'semantic-ui-react';
 
-// token and setToken come from the App component
-// It will be a boolean value
 const NavBar = ({ token, setToken }) => {
-  const [activeItem, setActiveItem] = useState("home");
+  const [activeItem, setActiveItem] = useState('home');
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   // Causes a re-render after token updates
-  useEffect(() => {}, [token]);
+  useEffect(() => {
+    setInterval(() => {
+      setToken(token);
+    }, 500);
+  }, [token]);
 
   const successfullyLoggedIn = () => {
-    if (localStorage.getItem("token") && localStorage.getItem("user")) {
+    if (localStorage.getItem('token') && localStorage.getItem('user')) {
       return true;
     } else {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
       return false;
     }
   };
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    setActiveItem("login");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setActiveItem('login');
     setToken(false);
-    // redirect
   };
 
   return (
@@ -35,36 +36,36 @@ const NavBar = ({ token, setToken }) => {
       <Menu inverted pointing secondary>
         {/* Change to="/" to point to marketing page? */}
         <Menu.Item
-          name="home"
+          name='home'
           as={Link}
-          to="/"
-          active={activeItem === "home"}
+          to='/'
+          active={activeItem === 'home'}
           onClick={handleItemClick}
         />
         {/* Change to="/about" to point to marketing page about? */}
         <Menu.Item
-          name="about"
+          name='about'
           as={Link}
-          to="/about"
-          active={activeItem === "about"}
+          to='/about'
+          active={activeItem === 'about'}
           onClick={handleItemClick}
         />
         {/* Changes based on whether or not a user is logged in (maybe use token?) */}
         {successfullyLoggedIn() ? (
-          <Menu.Menu position="right">
+          <Menu.Menu position='right'>
             {/* TODO: Add Menu Items for bills/user? Maybe add a drop-down for options */}
             <Menu.Item
-              name="bills"
+              name='bills'
               as={Link}
-              to="/bills"
-              active={activeItem === "bills"}
+              to='/bills'
+              active={activeItem === 'bills'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name="logout"
+              name='logout'
               as={Link}
-              to="/login"
-              active={activeItem === "logout"}
+              to='/login'
+              active={activeItem === 'logout'}
               onClick={event => {
                 handleItemClick(event, event.target.name);
                 logout();
@@ -72,19 +73,19 @@ const NavBar = ({ token, setToken }) => {
             />
           </Menu.Menu>
         ) : (
-          <Menu.Menu position="right">
+          <Menu.Menu position='right'>
             <Menu.Item
-              name="login"
+              name='login'
               as={Link}
-              to="/login"
-              active={activeItem === "login"}
+              to='/login'
+              active={activeItem === 'login'}
               onClick={handleItemClick}
             />
             <Menu.Item
-              name="sign-up"
+              name='register'
               as={Link}
-              to="/signup"
-              active={activeItem === "sign-up"}
+              to='/register'
+              active={activeItem === 'register'}
               onClick={handleItemClick}
             />
           </Menu.Menu>

@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Card, Feed, Icon, Button, Modal } from "semantic-ui-react";
+import React, { useState } from 'react';
+import { Card, Feed, Icon, Button, Modal } from 'semantic-ui-react';
 
-import EditBill from "./EditBill";
-import BillDetails from "./BillDetails";
-import NotificationButton from "./NotificationButton";
-import axios from "axios";
+import EditBill from './EditBill';
+import BillDetails from './BillDetails';
+import NotificationButton from './NotificationButton';
+import axios from 'axios';
 
-const Bill = ({ bill }) => {
+const Bill = ({ bill, bills, setToggle, props }) => {
   const total = (bill.split_sum * bill.split_people_count).toFixed(2);
   const [modalOpen, setModalOpen] = useState(false);
+  const count = bill.split_people_count;
 
   const handleOpen = () => {
     setModalOpen(true);
@@ -20,14 +21,19 @@ const Bill = ({ bill }) => {
   const deleteBill = () => {
     return axios
       .delete(
-        `https://split-the-bill-buildweek.herokuapp.com/api/bills/${bill.id}`,
+        `https://split-the-bill-postgres.herokuapp.com/api/bills/${bill.id}`,
         {
           headers: {
-            Authorization: localStorage.getItem("token")
-          }
-        }
+            Authorization: localStorage.getItem('token'),
+          },
+        },
       )
-      .then(res => console.log("Successfully deleted bill!"))
+      .then(() => {
+        if (bills.length < 2) {
+          return props[0].history.push('/');
+        }
+        setToggle(3);
+      })
       .catch(err => console.log(err));
   };
 
@@ -44,24 +50,27 @@ const Bill = ({ bill }) => {
               </Feed.Summary>
             </Feed.Content>
           </Feed.Event>
-          <div id="buttons-container">
-            <div id="edit-and-notification">
+          <div id='buttons-container'>
+            <div id='edit-and-notification'>
               <Modal
                 trigger={
                   <Button icon onClick={handleOpen}>
-                    <Icon name="edit outline" />
+                    <Icon name='edit outline' />
                   </Button>
                 }
                 open={modalOpen}
                 onClose={handleClose}
-                closeIcon
-              >
+                closeIcon>
                 <Modal.Header>Edit a Bill</Modal.Header>
                 {/* EDIT BILL */}
-                <EditBill bill={bill} handleClose={handleClose} />
+                <EditBill
+                  bill={bill}
+                  handleClose={handleClose}
+                  setToggle={setToggle}
+                />
               </Modal>
               {/* NOTIFICATIONS */}
-              <NotificationButton />
+              <NotificationButton count={count} />
             </div>
 
             <Modal trigger={<Button icon>See bill details</Button>} closeIcon>
@@ -71,7 +80,7 @@ const Bill = ({ bill }) => {
             </Modal>
 
             <Button icon onClick={deleteBill}>
-              <Icon name="delete" />
+              <Icon name='delete' />
             </Button>
           </div>
         </Feed>
