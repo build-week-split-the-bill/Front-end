@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 
-const NotificationForm = ({ count, sum }) => {
+const NotificationForm = ({ count, sum, handleClose }) => {
   // Change object into only strings?
   const email = { email: '' };
   const [emails, setEmails] = useState([{ ...email }]);
@@ -30,8 +30,8 @@ const NotificationForm = ({ count, sum }) => {
       return friend.email;
     });
 
-    emailStrings.forEach(email => {
-      sendFeedback(templateId, senderEmail, email, feedback);
+    emailStrings.forEach(receiverEmail => {
+      sendFeedback(templateId, senderEmail, receiverEmail, feedback);
     });
   };
 
@@ -43,7 +43,7 @@ const NotificationForm = ({ count, sum }) => {
         feedback,
       })
       .then(res => {
-        console.log('E-mail sent!');
+        handleClose();
       })
       // Handle errors here however you like, or use a React error boundary
       .catch(err => console.error('Failed to send feedback. Error: ', err));

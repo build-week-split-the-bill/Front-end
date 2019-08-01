@@ -24,7 +24,7 @@ const NotificationButton = ({ count, sum }) => {
       closeIcon>
       <Modal.Header>Send Notifications</Modal.Header>
       {/* NOTIFICATIONS */}
-      <NotificationForm count={count} sum={sum} />
+      <NotificationForm count={count} sum={sum} handleClose={handleClose} />
     </Modal>
   );
 };
