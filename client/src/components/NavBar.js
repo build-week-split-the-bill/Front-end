@@ -50,10 +50,8 @@ const NavBar = ({ token, setToken }) => {
           active={activeItem === 'about'}
           onClick={handleItemClick}
         />
-        {/* Changes based on whether or not a user is logged in (maybe use token?) */}
         {successfullyLoggedIn() ? (
           <Menu.Menu position='right'>
-            {/* TODO: Add Menu Items for bills/user? Maybe add a drop-down for options */}
             <Menu.Item
               name='bills'
               as={Link}
