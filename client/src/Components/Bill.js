@@ -5,13 +5,13 @@ import EditBill from './EditBill';
 import BillDetails from './BillDetails';
 import NotificationButton from './NotificationButton';
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
 
 const Bill = ({ bill, bills, setToggle, props }) => {
   const total = (bill.split_sum * bill.split_people_count).toFixed(2);
   const [modalOpen, setModalOpen] = useState(false);
   const count = bill.split_people_count;
   const sum = bill.split_sum.toFixed(2);
-
 
   const handleOpen = () => {
     setModalOpen(true);
@@ -21,6 +21,7 @@ const Bill = ({ bill, bills, setToggle, props }) => {
   };
 
   const deleteBill = () => {
+    loadProgressBar();
     return axios
       .delete(
         `https://split-the-bill-postgres.herokuapp.com/api/bills/${bill.id}`,

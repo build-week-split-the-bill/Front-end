@@ -10,6 +10,7 @@ import {
   Segment,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { loadProgressBar } from 'axios-progress-bar';
 
 export default function Login(props) {
   const [password, setPassword, handlePassword] = useInput('');
@@ -17,6 +18,7 @@ export default function Login(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    loadProgressBar();
     axios
       .post('https://split-the-bill-postgres.herokuapp.com/api/users/login', {
         password: password,

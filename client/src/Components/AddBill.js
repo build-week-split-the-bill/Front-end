@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
+import { loadProgressBar } from 'axios-progress-bar';
 
 // TODO: Working but need to work on closing after submit -> open notification modal/component?
 const AddBill = ({ handleClose, setToggle }) => {
@@ -17,6 +18,7 @@ const AddBill = ({ handleClose, setToggle }) => {
 
   useEffect(() => {
     const submitData = async data => {
+      loadProgressBar();
       return await axios.post(
         'https://split-the-bill-postgres.herokuapp.com/api/bills/',
         data,
