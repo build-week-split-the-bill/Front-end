@@ -3,7 +3,7 @@ import { Card, Feed, Icon, Button, Modal } from 'semantic-ui-react';
 
 import EditBill from './EditBill';
 import BillDetails from './BillDetails';
-import NotificationButton from './NotificationButton';
+//import NotificationButton from './NotificationButton';
 import axios from 'axios';
 
 const Bill = ({ bill, bills, setToggle, props }) => {
@@ -70,7 +70,7 @@ const Bill = ({ bill, bills, setToggle, props }) => {
                 />
               </Modal>
               {/* NOTIFICATIONS */}
-              <NotificationButton count={count} />
+              {/*<NotificationButton count={count} />*/}
             </div>
 
             <Modal trigger={<Button icon>See bill details</Button>} closeIcon>
