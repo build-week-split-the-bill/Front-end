@@ -31,6 +31,7 @@ const AddBill = ({ handleClose, setToggle }) => {
     if (postData) {
       submitData(postData)
         .then(res => {
+          console.log('response: ', res);
           handleClose();
           setToggle(1);
         })
@@ -44,7 +45,7 @@ const AddBill = ({ handleClose, setToggle }) => {
     const parseData = data => {
       return {
         user_id: JSON.parse(localStorage.getItem('user')).id,
-        split_sum: (data.total / data.count).toFixed(2),
+        split_sum: data.total / data.count,
         split_people_count: parseInt(data.count),
       };
     };

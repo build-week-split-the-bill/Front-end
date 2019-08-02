@@ -47,7 +47,7 @@ const EditBill = ({ bill, handleClose, setToggle }) => {
     const parseData = data => {
       return {
         user_id: JSON.parse(localStorage.getItem('user')).id,
-        split_sum: (data.total / data.count).toFixed(2),
+        split_sum: data.total / data.count,
         split_people_count: parseInt(data.count),
       };
     };
