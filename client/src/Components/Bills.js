@@ -14,7 +14,6 @@ import { loadProgressBar } from 'axios-progress-bar';
 import Bill from './Bill';
 import AddBill from './AddBill';
 
-// Route /bills
 const Bills = ({ ...props }) => {
   const [bills, setBills] = useState([]);
   const user = JSON.parse(localStorage.getItem('user'));

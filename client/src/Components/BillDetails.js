@@ -1,8 +1,7 @@
-import React from "react";
-import { Modal, Header } from "semantic-ui-react";
+import React from 'react';
+import { Modal, Header } from 'semantic-ui-react';
 
 const BillDetails = ({ bill, total }) => {
-  // TODO: Add notifications
   return (
     <Modal.Content>
       <Modal.Description>

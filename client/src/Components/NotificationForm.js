@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 
 const NotificationForm = ({ count, sum, handleClose }) => {
-  // Change object into only strings?
   const email = { email: '' };
   const [emails, setEmails] = useState([{ ...email }]);
   const [counter, setCounter] = useState(1);

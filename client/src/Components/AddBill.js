@@ -3,7 +3,6 @@ import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { loadProgressBar } from 'axios-progress-bar';
 
-// TODO: Working but need to work on closing after submit -> open notification modal/component?
 const AddBill = ({ handleClose, setToggle }) => {
   const [billData, setBillData] = useState({ total: '', count: '' });
   const [postData, setPostData] = useState(null);
@@ -46,7 +45,7 @@ const AddBill = ({ handleClose, setToggle }) => {
     const parseData = data => {
       return {
         user_id: JSON.parse(localStorage.getItem('user')).id,
-        split_sum: (data.total / data.count).toFixed(2),
+        split_sum: data.total / data.count,
         split_people_count: parseInt(data.count),
       };
     };

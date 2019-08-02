@@ -28,7 +28,6 @@ const NavBar = ({ token, setToken }) => {
   return (
     <Segment inverted>
       <Menu inverted pointing secondary>
-        {/* Change to="/" to point to marketing page? */}
         <Menu.Item
           name='home'
           as='a'
@@ -36,7 +35,6 @@ const NavBar = ({ token, setToken }) => {
           active={activeItem === 'home'}
           onClick={handleItemClick}
         />
-        {/* Change to="/about" to point to marketing page about? */}
         <Menu.Item
           name='about'
           as='a'
